@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Inventory System</title>
+    <style>
+        /* Ensure the body takes up the full height of the viewport */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            background-color: #f0f0f0;
+        }
+
+        /* Create a container for the game */
+        #game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #loot, #inventory {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .item, .inventory-slot {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+
+        .inventory-slot {
+            background-color: lightgray;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game">
+        <h1>Spill-inventory</h1>
+        <div id="loot">
+            <div class="item" id="item1" onclick="addItemToInventory('item1', 'slot1')">
+                <img src="inventory (1).png" alt="Loot 1">
+            </div>
+            <div class="item" id="item2" onclick="addItemToInventory('item2', 'slot2')">
+                <img src="inventory (2).png" alt="Loot 2">
+            </div>
+            <div class="item" id="item3" onclick="addItemToInventory('item3', 'slot3')">
+                <img src="inventory (3).png" alt="Loot 3">
+            </div>
+        </div>
+
+        <div id="inventory">
+            <div id="slot1" class="inventory-slot" onclick="removeItemFromInventory('slot1', 'item1')"></div>
+            <div id="slot2" class="inventory-slot" onclick="removeItemFromInventory('slot2', 'item2')"></div>
+            <div id="slot3" class="inventory-slot" onclick="removeItemFromInventory('slot3', 'item3')"></div>
+        </div>
+    </div>
+
+    <script>
+        function addItemToInventory(itemId, slotId) {
+            const item = document.getElementById(itemId);
+            const slot = document.getElementById(slotId);
+
+            if (slot.innerHTML === '') {
+                // Move the image from loot to inventory
+                slot.innerHTML = item.innerHTML;
+                item.style.display = 'none'; // Hide the item in the loot area
+            } else {
+                alert('This inventory slot is already filled!');
+            }
+        }
+
+        function removeItemFromInventory(slotId, itemId) {
+            const slot = document.getElementById(slotId);
+            const item = document.getElementById(itemId);
+
+            if (slot.innerHTML !== '') {
+                // Move the image back from inventory to loot
+                slot.innerHTML = '';
+                item.style.display = 'block'; // Show the item back in the loot area
+            } else {
+                alert('This slot is already empty!');
+            }
+        }
+    </script>
+
+</body>
+</html>
